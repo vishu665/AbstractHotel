@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace AbstractHotelDatabase.Models
+namespace AbstractHotelDatabaseImplement.Models
 {
     public class RoomСonference
     {

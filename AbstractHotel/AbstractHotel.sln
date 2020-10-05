@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractHotelView", "AbstractHotel\AbstractHotelView.csproj", "{D6D42748-9E9F-4094-A086-22760115BCEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractHotelDatabaseImplement", "AbstractHotelDatabase\AbstractHotelDatabaseImplement.csproj", "{1C4AB3C9-A5F7-4973-B9F7-82DD60337F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractHotelDatabaseImplement", "AbstractHotelDatabase\AbstractHotelDatabaseImplement.csproj", "{1C4AB3C9-A5F7-4973-B9F7-82DD60337F21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

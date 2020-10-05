@@ -1,12 +1,12 @@
-﻿using AbstractHotelDatabase.Models;
+﻿using AbstractHotelDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AbstractHotelDatabase
+namespace AbstractHotelDatabaseImplement
 {
-    public class AbstractHotelDatabase : DbContext
+    public class AbstractHotelDatabaseImplement : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

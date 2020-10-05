@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AbstractHotelDatabase.Models
+namespace AbstractHotelDatabaseImplement.Models
 {
     public class RequestLunch
     {
