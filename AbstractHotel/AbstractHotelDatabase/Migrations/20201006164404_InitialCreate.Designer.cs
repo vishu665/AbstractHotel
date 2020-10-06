@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbstractHotelDatabaseImplement.Migrations
 {
     [DbContext(typeof(AbstractHotelDatabaseImplement))]
-    [Migration("20201005130039_InitialCreate")]
+    [Migration("20201006164404_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,9 @@ namespace AbstractHotelDatabaseImplement.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("TypeLunch")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,7 +97,7 @@ namespace AbstractHotelDatabaseImplement.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("LunchesRooms");
+                    b.ToTable("LunchRooms");
                 });
 
             modelBuilder.Entity("AbstractHotelDatabaseImplement.Models.Request", b =>

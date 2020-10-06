@@ -31,6 +31,7 @@ namespace AbstractHotelDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TypeLunch = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
                     Count = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -117,26 +118,26 @@ namespace AbstractHotelDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LunchesRooms",
+                name: "LunchRooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomId = table.Column<int>(nullable: false),
                     LunchId = table.Column<int>(nullable: false),
+                    RoomId = table.Column<int>(nullable: false),
                     Count = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LunchesRooms", x => x.Id);
+                    table.PrimaryKey("PK_LunchRooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LunchesRooms_Lunches_LunchId",
+                        name: "FK_LunchRooms_Lunches_LunchId",
                         column: x => x.LunchId,
                         principalTable: "Lunches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LunchesRooms_Rooms_RoomId",
+                        name: "FK_LunchRooms_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
@@ -172,13 +173,13 @@ namespace AbstractHotelDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LunchesRooms_LunchId",
-                table: "LunchesRooms",
+                name: "IX_LunchRooms_LunchId",
+                table: "LunchRooms",
                 column: "LunchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LunchesRooms_RoomId",
-                table: "LunchesRooms",
+                name: "IX_LunchRooms_RoomId",
+                table: "LunchRooms",
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
@@ -210,7 +211,7 @@ namespace AbstractHotelDatabaseImplement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LunchesRooms");
+                name: "LunchRooms");
 
             migrationBuilder.DropTable(
                 name: "RequestLunches");

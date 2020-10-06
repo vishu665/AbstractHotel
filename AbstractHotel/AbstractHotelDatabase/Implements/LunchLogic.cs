@@ -39,7 +39,7 @@ namespace AbstractHotelDatabaseImplement.Implements
 
                 element.TypeLunch = model.TypeLunch;
                 element.Count = model.Count;
-
+                element.Price = model.Price;
                 context.SaveChanges();
             }
         }
@@ -96,7 +96,8 @@ namespace AbstractHotelDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     TypeLunch = rec.TypeLunch,
-                    Count = rec.Count
+                    Count = rec.Count,
+                    Price = rec.Price
                 })
                 .ToList();
             }

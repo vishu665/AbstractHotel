@@ -46,27 +46,27 @@ namespace AbstractHotelDatabaseImplement.Implements
                         context.SaveChanges();
                         if (model.Id.HasValue)
                         {
-                            var lunchRoom = context.LunchesRooms.Where(rec
+                            var lunchRooms = context.LunchRooms.Where(rec
                            => rec.RoomId == model.Id.Value).ToList();
                             // удалили те, которых нет в модели
 
-                            context.LunchesRooms.RemoveRange(lunchRoom.Where(rec =>
+                            context.LunchRooms.RemoveRange(lunchRooms.Where(rec =>
                             !model.LunchRooms.ContainsKey(rec.LunchId)).ToList());
                             context.SaveChanges();
                             // обновили количество у существующих записей
-                            foreach (var updateRoom in lunchRoom)
+                            foreach (var updateDiscipline in lunchRooms)
                             {
-                                updateRoom.Count =
-                               model.LunchRooms[updateRoom.LunchId].Item2;
+                                updateDiscipline.Count =
+                               model.LunchRooms[updateDiscipline.LunchId].Item2;
 
-                                model.LunchRooms.Remove(updateRoom.LunchId);
+                                model.LunchRooms.Remove(updateDiscipline.LunchId);
                             }
                             context.SaveChanges();
                         }
                         // добавили новые
                         foreach (var pc in model.LunchRooms)
                         {
-                            context.LunchesRooms.Add(new LunchRoom
+                            context.LunchRooms.Add(new LunchRoom
                             {
                                 RoomId = element.Id,
                                 LunchId = pc.Key,
@@ -84,7 +84,6 @@ namespace AbstractHotelDatabaseImplement.Implements
                 }
             }
         }
-
         public void Delete(RoomBindingModel model)
         {
             using (var context = new AbstractHotelDatabaseImplement())
@@ -93,7 +92,7 @@ namespace AbstractHotelDatabaseImplement.Implements
                 {
                     try
                     {
-                        context.LunchesRooms.RemoveRange(context.LunchesRooms.Where(rec =>
+                        context.LunchRooms.RemoveRange(context.LunchRooms.Where(rec =>
                         rec.RoomId == model.Id));
                         Room element = context.Rooms.FirstOrDefault(rec => rec.Id == model.Id);
                         if (element != null)
@@ -129,11 +128,11 @@ namespace AbstractHotelDatabaseImplement.Implements
                    RoomsType = rec.RoomsType,
 
                    Price = rec.Price,
-                   LunchRoom = context.LunchesRooms
+                   LunchRoom = context.LunchRooms
                 .Include(recPC => recPC.Lunch)
                .Where(recPC => recPC.RoomId == rec.Id)
-               .ToDictionary(recPC => recPC.RoomId, recPC =>
-                (recPC.Room?.RoomsType, recPC.Count))
+               .ToDictionary(recPC => recPC.LunchId, recPC =>
+                (recPC.Lunch?.TypeLunch, recPC.Count))
                })
                .ToList();
             }

@@ -12,6 +12,8 @@ namespace AbstractHotelDatabaseImplement.Models
         [Required]
         public string TypeLunch { get; set; }
         [Required]
+        public decimal Price { get; set; }
+        [Required]
         public int Count { get; set; }
         [ForeignKey("LunchId")]
         public virtual List<LunchRoom> LunchRoom { get; set; }

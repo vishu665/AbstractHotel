@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AbstractHotelBusinessLogic.Interfaces;
+using AbstractHotelDatabaseImplement.Implements;
+using System;
+using System.Configuration;
+using System.Threading;
 using System.Windows.Forms;
-
+using Unity;
+using Unity.Lifetime;
 namespace AbstractHotel
 {
     static class Program
@@ -14,9 +16,19 @@ namespace AbstractHotel
         [STAThread]
         static void Main()
         {
+            var container = BuildUnityContainer();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(container.Resolve<FormMain>());
+        }
+        private static IUnityContainer BuildUnityContainer()
+        {
+            var currentContainer = new UnityContainer();
+            currentContainer.RegisterType<ILunchLogic, LunchLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IRoomLogic, RoomLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IRequestLogic, RequestLogic>(new HierarchicalLifetimeManager());
+            return currentContainer;
         }
     }
 }

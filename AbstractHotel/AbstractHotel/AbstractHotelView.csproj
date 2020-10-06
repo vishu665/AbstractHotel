@@ -160,16 +160,97 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.7\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.8.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.7\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FormFillRequest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormFillRequest.Designer.cs">
+      <DependentUpon>FormFillRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLunch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLunch.Designer.cs">
+      <DependentUpon>FormLunch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLunches.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLunches.Designer.cs">
+      <DependentUpon>FormLunches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLunchRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLunchRoom.Designer.cs">
+      <DependentUpon>FormLunchRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequest.Designer.cs">
+      <DependentUpon>FormRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRequests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequests.Designer.cs">
+      <DependentUpon>FormRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRoom.Designer.cs">
+      <DependentUpon>FormRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRooms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRooms.Designer.cs">
+      <DependentUpon>FormRooms.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormFillRequest.resx">
+      <DependentUpon>FormFillRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLunch.resx">
+      <DependentUpon>FormLunch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLunches.resx">
+      <DependentUpon>FormLunches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLunchRoom.resx">
+      <DependentUpon>FormLunchRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequest.resx">
+      <DependentUpon>FormRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequests.resx">
+      <DependentUpon>FormRequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRoom.resx">
+      <DependentUpon>FormRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRooms.resx">
+      <DependentUpon>FormRooms.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -194,6 +275,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AbstractHotelBusinessLogic\AbstractHotelBusinessLogic.csproj">
+      <Project>{a0104aab-a0d4-4d0b-8f7f-97ee224e4477}</Project>
+      <Name>AbstractHotelBusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AbstractHotelDatabase\AbstractHotelDatabaseImplement.csproj">
       <Project>{1c4ab3c9-a5f7-4973-b9f7-82dd60337f21}</Project>
       <Name>AbstractHotelDatabaseImplement</Name>

@@ -61,6 +61,9 @@ namespace AbstractHotelDatabaseImplement.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("TypeLunch")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -92,7 +95,7 @@ namespace AbstractHotelDatabaseImplement.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("LunchesRooms");
+                    b.ToTable("LunchRooms");
                 });
 
             modelBuilder.Entity("AbstractHotelDatabaseImplement.Models.Request", b =>

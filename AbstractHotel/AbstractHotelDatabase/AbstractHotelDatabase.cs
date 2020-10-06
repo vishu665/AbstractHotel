@@ -12,7 +12,7 @@ namespace AbstractHotelDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source = DESKTOP-6CHU0IL\SQLEXPRESS;Initial Catalog=AbstractHotel;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer(@"Data Source = DESKTOP-V8MOBH6\SQLEXPRESS;Initial Catalog=AbstractHotel;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }
@@ -21,7 +21,7 @@ namespace AbstractHotelDatabaseImplement
         public virtual DbSet<Room> Rooms { set; get; }
         public virtual DbSet<RoomСonference> RoomsСonferences { set; get; }
         public virtual DbSet<Lunch> Lunches { set; get; }
-        public virtual DbSet<LunchRoom> LunchesRooms { set; get; }
+        public virtual DbSet<LunchRoom> LunchRooms { set; get; }
         public virtual DbSet<Request> Requests { set; get; }
         public virtual DbSet<RequestLunch> RequestLunches { set; get; }
     }
