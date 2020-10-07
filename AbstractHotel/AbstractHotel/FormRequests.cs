@@ -1,4 +1,5 @@
 ﻿using AbstractHotelBusinessLogic.BindingModels;
+using AbstractHotelBusinessLogic.BuisnessLogic;
 using AbstractHotelBusinessLogic.Interfaces;
 using AbstractHotelBusinessLogic.ViewModels;
 using System;
@@ -19,11 +20,15 @@ namespace AbstractHotel
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        private readonly IRequestLogic logic;
-        public FormRequests(IRequestLogic logic)
+        private readonly IRequestLogic logic; 
+        private readonly ReportLogic reportLogic;
+
+        public FormRequests(IRequestLogic logic, ReportLogic reportLogic)
         {
             InitializeComponent();
             this.logic = logic;
+            this.reportLogic = reportLogic;
+
 
         }
         private void FormRequests_Load(object sender, EventArgs e)
@@ -110,6 +115,52 @@ namespace AbstractHotel
         {
             var form = Container.Resolve<FormFillRequest>();
             form.ShowDialog();
+        }
+
+        private void buttonRequest_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        reportLogic.SaveProductsToWordFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        });
+
+
+                        MessageBox.Show("Отчет сохранился!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+            }
+            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        reportLogic.SaveRequestPlaceToExcelFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        });
+
+                        MessageBox.Show("Отчет сохранился!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

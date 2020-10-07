@@ -1,4 +1,5 @@
-﻿using AbstractHotelBusinessLogic.Interfaces;
+﻿using AbstractHotelBusinessLogic.BuisnessLogic;
+using AbstractHotelBusinessLogic.Interfaces;
 using AbstractHotelDatabaseImplement.Implements;
 using System;
 using System.Configuration;
@@ -28,6 +29,8 @@ namespace AbstractHotel
             currentContainer.RegisterType<ILunchLogic, LunchLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRoomLogic, RoomLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRequestLogic, RequestLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<MainLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
