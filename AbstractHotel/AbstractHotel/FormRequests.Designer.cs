@@ -35,6 +35,8 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonFill = new System.Windows.Forms.Button();
             this.buttonRequest = new System.Windows.Forms.Button();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +45,7 @@
             this.buttonRef.Location = new System.Drawing.Point(648, 175);
             this.buttonRef.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRef.Name = "buttonRef";
-            this.buttonRef.Size = new System.Drawing.Size(116, 30);
+            this.buttonRef.Size = new System.Drawing.Size(232, 30);
             this.buttonRef.TabIndex = 22;
             this.buttonRef.Text = "Обновить";
             this.buttonRef.UseVisualStyleBackColor = true;
@@ -54,7 +56,7 @@
             this.buttonUpd.Location = new System.Drawing.Point(648, 76);
             this.buttonUpd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpd.Name = "buttonUpd";
-            this.buttonUpd.Size = new System.Drawing.Size(116, 31);
+            this.buttonUpd.Size = new System.Drawing.Size(232, 31);
             this.buttonUpd.TabIndex = 21;
             this.buttonUpd.Text = "Изменить";
             this.buttonUpd.UseVisualStyleBackColor = true;
@@ -65,7 +67,7 @@
             this.buttonDel.Location = new System.Drawing.Point(648, 127);
             this.buttonDel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(116, 30);
+            this.buttonDel.Size = new System.Drawing.Size(232, 30);
             this.buttonDel.TabIndex = 20;
             this.buttonDel.Text = "Удалить";
             this.buttonDel.UseVisualStyleBackColor = true;
@@ -76,7 +78,7 @@
             this.buttonAdd.Location = new System.Drawing.Point(648, 26);
             this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(116, 32);
+            this.buttonAdd.Size = new System.Drawing.Size(232, 32);
             this.buttonAdd.TabIndex = 19;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -96,10 +98,10 @@
             // 
             // buttonFill
             // 
-            this.buttonFill.Location = new System.Drawing.Point(648, 257);
+            this.buttonFill.Location = new System.Drawing.Point(648, 242);
             this.buttonFill.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFill.Name = "buttonFill";
-            this.buttonFill.Size = new System.Drawing.Size(116, 43);
+            this.buttonFill.Size = new System.Drawing.Size(232, 43);
             this.buttonFill.TabIndex = 23;
             this.buttonFill.Text = "Пополнить заявку";
             this.buttonFill.UseVisualStyleBackColor = true;
@@ -107,20 +109,38 @@
             // 
             // buttonRequest
             // 
-            this.buttonRequest.Location = new System.Drawing.Point(648, 319);
+            this.buttonRequest.Location = new System.Drawing.Point(744, 391);
             this.buttonRequest.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRequest.Name = "buttonRequest";
-            this.buttonRequest.Size = new System.Drawing.Size(116, 43);
+            this.buttonRequest.Size = new System.Drawing.Size(135, 27);
             this.buttonRequest.TabIndex = 24;
-            this.buttonRequest.Text = "Отчет";
+            this.buttonRequest.Text = "Отправить";
             this.buttonRequest.UseVisualStyleBackColor = true;
             this.buttonRequest.Click += new System.EventHandler(this.buttonRequest_Click);
+            // 
+            // textBoxEmail
+            // 
+            this.textBoxEmail.Location = new System.Drawing.Point(648, 351);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(231, 22);
+            this.textBoxEmail.TabIndex = 25;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(645, 314);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(167, 34);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Введите почту для \r\nотправки на нее отчета";
             // 
             // FormRequests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(893, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.buttonRequest);
             this.Controls.Add(this.buttonFill);
             this.Controls.Add(this.buttonRef);
@@ -133,6 +153,7 @@
             this.Load += new System.EventHandler(this.FormRequests_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -145,5 +166,7 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button buttonFill;
         private System.Windows.Forms.Button buttonRequest;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.Label label1;
     }
 }

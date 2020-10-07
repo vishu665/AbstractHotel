@@ -4,6 +4,7 @@ using AbstractHotelBusinessLogic.Interfaces;
 using AbstractHotelBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AbstractHotelBusinessLogic.BuisnessLogic
@@ -46,6 +47,35 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
             }
             return list;
         }
+        public List<ReportRequestsViewModel> GetLunches(ReportBindingModel model)
+        {
+            List<ReportRequestsViewModel> reportRD = new List<ReportRequestsViewModel>();
+            {
+                var requests = requestLogic.Read(new RequestBindingModel
+                {
+                    DateFrom = model.DateFrom,
+                    DateTo = model.DateTo
+                });
+
+                var lunches = lunchLogic.Read(null);             
+                foreach (var request in requests)
+                {
+                    foreach (var lunch in request.RequestLunch)
+                    {
+                        reportRD.Add(new ReportRequestsViewModel()
+                        {
+                            DateCreate = request.DateCreate,
+                            TypeLunch = lunch.Value.Item1,
+                            Count = lunch.Value.Item2,
+                            Title = request.RequestName
+                        });
+                    }
+                }
+            }
+            return reportRD.OrderBy(x => x.DateCreate).ToList();
+
+        }
+
         public void SaveProductsToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo
@@ -62,6 +92,17 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
                 FileName = model.FileName,
                 Title = "Список заявок",
                 RequestLunches = GetRequestLunches()
+            });
+        }
+        public void SaveRequestDisciplineToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDoc(new PdfInfo()
+            {
+                FileName = model.FileName,
+                Title = "Список заявок и конференций",
+                DateFrom = model.DateFrom.Value,
+                DateTo = model.DateTo.Value,
+                RequestLunches = GetLunches(model)
             });
         }
     }

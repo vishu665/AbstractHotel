@@ -1,12 +1,15 @@
 ﻿using AbstractHotelBusinessLogic.BuisnessLogic;
+using AbstractHotelBusinessLogic.HelperModels;
 using AbstractHotelBusinessLogic.Interfaces;
 using AbstractHotelDatabaseImplement.Implements;
+using Microsoft.IdentityModel.Protocols;
 using System;
 using System.Configuration;
 using System.Threading;
 using System.Windows.Forms;
 using Unity;
 using Unity.Lifetime;
+
 namespace AbstractHotel
 {
     static class Program
@@ -18,7 +21,13 @@ namespace AbstractHotel
         static void Main()
         {
             var container = BuildUnityContainer();
-
+            MailLogic.MailConfig(new MailConfig
+            {
+                SmtpClientHost = ConfigurationManager.AppSettings["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
+                MailLogin = ConfigurationManager.AppSettings["MailLogin"],
+                MailPassword = ConfigurationManager.AppSettings["MailPassword"],
+            });
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(container.Resolve<FormMain>());

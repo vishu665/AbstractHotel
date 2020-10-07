@@ -9,7 +9,7 @@ namespace AbstractHotelBusinessLogic.ViewModels
         public string Title { get; set; }
         public DateTime DateCreate { get; set; }
         public int Count { get; set; }
-        public string TypePlace { get; set; }
+        public string TypeLunch { get; set; }
 
     }
 }

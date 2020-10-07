@@ -24,8 +24,10 @@ namespace AbstractHotel
             set { comboBoxLunch.SelectedValue = value; }
         }
         private readonly ILunchLogic logic;
-        public static string priceLunch;
-        int c = 0;
+        private readonly IRoomLogic logicR;
+
+        public  string priceLunch;
+        public static int c = 0; 
         public string TypeLunch { get { return comboBoxLunch.Text; } }
         public int Count
         {
@@ -35,7 +37,7 @@ namespace AbstractHotel
                 textBoxCount.Text = value.ToString();
             }
         }
-        public FormLunchRoom(ILunchLogic logic)
+        public FormLunchRoom(ILunchLogic logic, IRoomLogic logicR)
         {
             InitializeComponent();
             List<LunchViewModel> list = logic.Read(null);
@@ -47,6 +49,8 @@ namespace AbstractHotel
                 comboBoxLunch.SelectedItem = null;
             }
             this.logic = logic;
+            this.logicR = logicR;
+
         }
         private void CalcSum()
         {
@@ -61,7 +65,7 @@ namespace AbstractHotel
                        id
                        })?[0];
                        int count = Convert.ToInt32(textBoxCount.Text);
-                       int c =+ (int)(count * product?.Price ?? 0);
+                       c = c +  (int)(count * product?.Price ?? 0);
                        priceLunch = c.ToString();
                 }
                 catch (Exception ex)
@@ -90,7 +94,7 @@ namespace AbstractHotel
                 MessageBox.Show("Выберите тип места", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
-            }
+            }              
             DialogResult = DialogResult.OK;
             Close();
         }

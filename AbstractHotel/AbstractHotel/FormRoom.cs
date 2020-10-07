@@ -21,8 +21,9 @@ namespace AbstractHotel
         public int Id { set { id = value; } }
         private readonly IRoomLogic logic;
         private int? id;
+    
 
-      
+
         public FormRoom(IRoomLogic service)
         {
             InitializeComponent();
@@ -120,21 +121,24 @@ namespace AbstractHotel
                 }
             }
         }
-
+        public static int c = FormLunchRoom.c;
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormLunchRoom>();
+           
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (lunchRooms.ContainsKey(form.Id))
                 {
+                    c = FormLunchRoom.c;
                     lunchRooms[form.Id] = (form.TypeLunch, form.Count);
-                    textBoxPriceLunch.Text = FormLunchRoom.priceLunch;
+                    textBoxPriceLunch.Text = form.priceLunch;
                 }
                 else
                 {
+                    c = FormLunchRoom.c;
                     lunchRooms.Add(form.Id, (form.TypeLunch, form.Count));
-                    textBoxPriceLunch.Text = FormLunchRoom.priceLunch;
+                    textBoxPriceLunch.Text = form.priceLunch;
                 }
                 LoadData();
             }

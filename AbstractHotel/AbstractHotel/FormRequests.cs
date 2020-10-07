@@ -1,5 +1,6 @@
 ﻿using AbstractHotelBusinessLogic.BindingModels;
 using AbstractHotelBusinessLogic.BuisnessLogic;
+using AbstractHotelBusinessLogic.HelperModels;
 using AbstractHotelBusinessLogic.Interfaces;
 using AbstractHotelBusinessLogic.ViewModels;
 using System;
@@ -129,9 +130,14 @@ namespace AbstractHotel
                         {
                             FileName = dialog.FileName
                         });
+                        MailLogic.MailSend(new MailSendInfo
+                        {
+                            MailAddress = textBoxEmail.Text,
+                            Subject = $"Оповещение по заявке",
+                            Text = $"Поступила заявка на обеды",
+                            FileName = dialog.FileName
 
-
-                        MessageBox.Show("Отчет сохранился!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        });
                     }
 
                     catch (Exception ex)
@@ -151,8 +157,16 @@ namespace AbstractHotel
                         {
                             FileName = dialog.FileName
                         });
+                        MailLogic.MailSend(new MailSendInfo
+                        {
+                            MailAddress = textBoxEmail.Text,
+                            Subject = $"Оповещение по заявке",
+                            Text = $"Поступила заявка на обеды",
+                            FileName = dialog.FileName
 
-                        MessageBox.Show("Отчет сохранился!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        });
+
+                        MessageBox.Show("Отчет сохранен и отправлен!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     catch (Exception ex)
