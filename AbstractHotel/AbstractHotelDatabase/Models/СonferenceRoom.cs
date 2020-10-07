@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace AbstractHotelDatabaseImplement.Models
 {
-    public class RoomСonference
+    public class СonferenceRoom
     {
         public int Id { get; set; }
 
-        public int СonferenceId { get; set; }
+        public int ConferenceId { get; set; }
 
         public int RoomId { get; set; }
 
@@ -17,7 +16,7 @@ namespace AbstractHotelDatabaseImplement.Models
 
         public string RoomsType { get; set; }
 
-        public virtual Сonference Сonference { get; set; }
+        public virtual Сonference Conference { get; set; }
 
         public virtual Room Room { get; set; }
     }

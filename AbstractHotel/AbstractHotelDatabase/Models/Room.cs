@@ -12,7 +12,6 @@ namespace AbstractHotelDatabaseImplement.Models
         public string RoomsType { get; set; }
         [Required]
         public decimal Price { get; set; }
-        public virtual List<RoomСonference> RoomСonference { get; set; }
         public virtual List<LunchRoom> LunchRoom { get; set; }
 
     }
