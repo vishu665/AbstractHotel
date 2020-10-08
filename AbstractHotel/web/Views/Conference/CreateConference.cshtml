@@ -1,0 +1,27 @@
+﻿@model web.Models.CreateConfModel
+
+@{ ViewData["Title"] = "Создать конференцию";
+ }
+<div class="text-center text-info">
+    <h1>@ViewData["Title"]</h1>
+</div>
+<hr />
+@using (Html.BeginForm())
+ {
+    @Html.ValidationSummary(true, "", new { @style = "color: pink" })
+<table class="table">
+    <tr>
+        <td>Тип номера</td>
+        <td>Цена</td>
+        @foreach (AbstractHotelBusinessLogic.ViewModels.RoomViewModel car in ViewBag.OrderCars)
+        {
+<tr>
+    <td>@car.RoomsType</td>
+    <td>@car.Price</td>
+    <td><input type="number" name="Model.ConferenceRooms[@car.Id]" value="0" min="0" /></td>
+</tr>}
+    </table>
+<button type="submit" class="btn btn-info btn-sm">Создать</button>
+ }
+
+

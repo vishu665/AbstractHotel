@@ -1,0 +1,43 @@
+﻿@model ReportModel
+@{ ViewData["Title"] = "Конференции"; }
+
+<div class="text-center text-info">
+    <h1>Конференции</h1>
+</div>
+<hr />
+<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="conference" asp-action="CreateOrder">Создать конференцию</a></strong></p>
+<hr />
+@using (Html.BeginForm())
+{
+<p>
+<button type="submit" class="btn btn-info btn-sm">Получить отчет по конференциям на почту в формате PDF</button>
+</p>
+}
+<hr />
+@foreach (var order in ViewBag.orders)
+{
+<p><strong>Конференция @order.Id </strong></p>
+<p>Дата создания: @order.DateCreate</p>
+<p>Цена: @order.Price</p>
+    <table class="table">
+        <tr>
+            <td>Тип номера</td>
+            <td>Цена</td>
+        </tr>
+        @foreach (var car in order.OrderCars)
+        {
+    <tr>
+        <td>@car.RoomsType</td>
+        <td>@car.Price</td>
+    </tr>
+        }
+    </table>
+    
+<p>
+<a href="/Order/SendWordReport/@order.Id">Отправить список номеров в формате .docx</a>
+</p>
+<p>
+<a href="/Order/SendExcelReport/@order.Id">Отправить список номеров в формате .xslx</a>
+</p>
+<hr />
+}
