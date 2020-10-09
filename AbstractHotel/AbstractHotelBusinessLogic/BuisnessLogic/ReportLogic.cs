@@ -13,11 +13,17 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
     {
         private readonly IRequestLogic requestLogic;
         private readonly ILunchLogic lunchLogic;
+        private readonly IRoomLogic roomLogic;
 
-        public ReportLogic(IRequestLogic requestLogic, ILunchLogic lunchLogic)
+        private readonly IConferenceLogic confLogic;
+
+        public ReportLogic(IRequestLogic requestLogic, IRoomLogic roomLogic, IConferenceLogic confLogic, ILunchLogic lunchLogic)
         {
             this.requestLogic = requestLogic;
             this.lunchLogic = lunchLogic;
+            this.confLogic = confLogic;
+            this.roomLogic = roomLogic;
+
         }
 
         public List<ReportRequestLunchesViewModel> GetRequestLunches()
@@ -57,7 +63,25 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
                     DateTo = model.DateTo
                 });
 
-                var lunches = lunchLogic.Read(null);             
+                var lunches = lunchLogic.Read(null);
+                var conferences = confLogic.Read(null);
+                var rooms = roomLogic.Read(null);
+
+                foreach (var conference in conferences)
+                {
+                    foreach (var confRoom in conference.ConferenceRooms)
+                    {
+                        foreach (var lunch in rooms.Where(x => x.Id == confRoom.RoomId).First().LunchRoom)
+
+                            reportRD.Add(new ReportRequestsViewModel()
+                            {
+                                DateCreate = conference.DateCreate,
+                                TypeLunch = lunch.Value.Item1,
+                                Count = (int)confRoom.Count,
+                                Title = "Конференция " + conference.ClientId.ToString()
+                            });
+                    }
+                }
                 foreach (var request in requests)
                 {
                     foreach (var lunch in request.RequestLunch)

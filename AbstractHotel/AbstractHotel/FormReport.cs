@@ -65,6 +65,12 @@ namespace AbstractHotel
                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (string.IsNullOrEmpty(textBoxEmail.Text))
+            {
+                MessageBox.Show("Заполните почту", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
             using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)

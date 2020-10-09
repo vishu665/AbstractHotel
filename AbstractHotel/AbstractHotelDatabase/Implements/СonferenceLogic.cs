@@ -130,8 +130,10 @@ namespace AbstractHotelDatabaseImplement.Implements
                         ConferenceId = rec.ConferenceId,
                         RoomId = rec.RoomId,
                         RoomType = rec.Room.RoomsType,
+                        Count = rec.Count,
                         //&
                         Price = rec.Count
+
                     }).ToList();
 
                 foreach (var car in cars)

@@ -21,5 +21,6 @@ namespace AbstractHotelBusinessLogic.ViewModels
 
         [DataMember]
         public decimal Price { get; set; }
+        public decimal Count { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace AbstractHotelDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Server=(local)\SQLEXPRESS;Initial Catalog=AbstractHotel;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer(@"Data Source = DESKTOP-V8MOBH6\SQLEXPRESS;Initial Catalog=AbAAstractHotel;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }

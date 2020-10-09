@@ -42,6 +42,8 @@ namespace AbstractHotel
             currentContainer.RegisterType<MainLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IClientLogic, ClientLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IConferenceLogic, СonferenceLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IBackUp, BackUpLogicc>(new HierarchicalLifetimeManager());
+
             return currentContainer;
         }
     }

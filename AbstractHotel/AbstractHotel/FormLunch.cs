@@ -51,6 +51,12 @@ namespace AbstractHotel
                MessageBoxIcon.Error);
                 return;
             }
+            if (string.IsNullOrEmpty(textBoxPrice.Text))
+            {
+                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 logic.CreateOrUpdate(new LunchBindingModel

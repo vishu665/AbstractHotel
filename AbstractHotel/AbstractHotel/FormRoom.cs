@@ -152,9 +152,9 @@ namespace AbstractHotel
                MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(textBoxPriceLunch.Text))
+            if (string.IsNullOrEmpty(textBoxPriceRoom.Text))
             {
-                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK,
+                MessageBox.Show("Заполните цену за номер", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
             }

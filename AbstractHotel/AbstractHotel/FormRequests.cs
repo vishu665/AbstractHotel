@@ -120,6 +120,12 @@ namespace AbstractHotel
 
         private void buttonRequest_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxEmail.Text))
+            {
+                MessageBox.Show("Заполните почту", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
