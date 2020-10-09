@@ -26,8 +26,9 @@ namespace web
             services.AddTransient<ILunchLogic, LunchLogic>();
             services.AddTransient<IConferenceLogic, ÑonferenceLogic>();
             services.AddTransient<IRoomLogic, RoomLogic>();
+            services.AddTransient<IRequestLogic, RequestLogic>();
             services.AddTransient<BackUpAbstractLogic, BackUpLogic>();
-            //services.AddTransient<ReportLogic>();
+            services.AddTransient<ReportLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

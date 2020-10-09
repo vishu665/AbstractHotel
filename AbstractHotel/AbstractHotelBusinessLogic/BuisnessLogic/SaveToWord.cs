@@ -54,6 +54,62 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
             }
         }
 
+        public static void CreateDoc(WordInfoClient info)
+        {
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
+            {
+                MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+                mainPart.Document = new Document();
+                Body docBody = mainPart.Document.AppendChild(new Body());
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<string> { info.Title },
+                    TextProperties = new WordParagraphProperties
+                    {
+                        Bold = true,
+                        Size = "24",
+                        JustificationValues = JustificationValues.Center
+                    }
+                }));
+                Table table = new Table();
+                TableProperties tblProp = new TableProperties(
+                    new TableBorders(
+                        new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 }
+                    )
+                );
+                table.AppendChild<TableProperties>(tblProp);
+                TableRow headerRow = new TableRow();
+                TableCell headerNumberCell = new TableCell(new Paragraph(new Run(new Text("№"))));
+                TableCell headerNameCell = new TableCell(new Paragraph(new Run(new Text("Тип номера"))));
+                TableCell headerPriceCell = new TableCell(new Paragraph(new Run(new Text("Цена"))));
+                headerRow.Append(headerNumberCell);
+                headerRow.Append(headerNameCell);
+                headerRow.Append(headerPriceCell);
+                table.Append(headerRow);
+                int i = 1;
+                foreach (var car in info.Rooms)
+                {
+                    TableRow serviceRow = new TableRow();
+                    TableCell numberCell = new TableCell(new Paragraph(new Run(new Text(i.ToString()))));
+                    TableCell nameCell = new TableCell(new Paragraph(new Run(new Text(car.RoomsType))));
+                    TableCell priceCell = new TableCell(new Paragraph(new Run(new Text(car.Price.ToString()))));
+                    serviceRow.Append(numberCell);
+                    serviceRow.Append(nameCell);
+                    serviceRow.Append(priceCell);
+                    table.Append(serviceRow);
+                    i++;
+                }
+                docBody.Append(table);
+                docBody.AppendChild(CreateSectionProperties());
+                wordDocument.MainDocumentPart.Document.Save();
+            }
+        }
+
         private static SectionProperties CreateSectionProperties()
         {
             SectionProperties properties = new SectionProperties();

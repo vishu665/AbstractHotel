@@ -5,6 +5,8 @@ using AbstractHotelBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 
 namespace AbstractHotelBusinessLogic.BuisnessLogic
@@ -14,7 +16,6 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
         private readonly IRequestLogic requestLogic;
         private readonly ILunchLogic lunchLogic;
         private readonly IRoomLogic roomLogic;
-
         private readonly IConferenceLogic confLogic;
 
         public ReportLogic(IRequestLogic requestLogic, IRoomLogic roomLogic, IConferenceLogic confLogic, ILunchLogic lunchLogic)
@@ -100,6 +101,48 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
 
         }
 
+        public List<RoomViewModel> GetConferenceRooms(СonferenceViewModel order)
+        {
+            var cars = new List<RoomViewModel>();
+
+            foreach (var car in order.ConferenceRooms)
+            {
+                cars.Add(roomLogic.Read(new RoomBindingModel
+                {
+                    Id = car.RoomId
+                }).FirstOrDefault());
+            }
+            return cars;
+        }
+
+        public List<СonferenceViewModel> GetClientOrders(int id)
+        {
+            var orders = confLogic.Read(null);
+            var list = new List<СonferenceViewModel>();
+            foreach (var order in orders)
+            {
+                if (order.ClientId == id)
+                {
+                    var record = new СonferenceViewModel
+                    {
+                        Id = order.Id,
+                        ClientFIO = order.ClientFIO,
+                        DateCreate = order.DateCreate,
+                        Price = order.Price,
+                        ConferenceRooms = order.ConferenceRooms
+                    };
+
+                    list.Add(record);
+                }
+            }
+            return list;
+        }
+
+        public List<RoomViewModel> GetCars()
+        {
+            return roomLogic.Read(null);
+        }
+
         public void SaveProductsToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo
@@ -128,6 +171,64 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
                 DateTo = model.DateTo.Value,
                 RequestLunches = GetLunches(model)
             });
+        }
+        
+        //ворд клиент
+        public void SaveConferenceToWordFile(string fileName, СonferenceViewModel order, string email)
+        {
+            string title = "Список номеров по конференции №" + order.Id;
+            SaveToWord.CreateDoc(new WordInfoClient
+            {
+                FileName = fileName,
+                Title = title,
+                Rooms = GetConferenceRooms(order)
+            });
+            SendMail(email, fileName, title);
+        }
+
+        //ексель клиент
+        public void SaveConferenceToExcelFile(string fileName, СonferenceViewModel order, string email)
+        {
+            string title = "Список номеров по конференции №" + order.Id;
+            SaveToExcel.CreateDoc(new ExcelInfoClient
+            {
+                FileName = fileName,
+                Title = title,
+                Rooms = GetConferenceRooms(order)
+            });
+            SendMail(email, fileName, title);
+        }
+
+        //пдф клиент
+        public void SaveCarsDetailsToPdfFile(string fileName, int id, string email)
+        {
+            string title = "Список конференций";
+            SaveToPdf.CreateDoc(new PdfInfoClient
+            {
+                FileName = fileName,
+                Title = title,
+                Conferences = GetClientOrders(id),
+                Rooms = GetCars()
+            });
+            SendMail(email, fileName, title);
+        }
+
+
+        public void SendMail(string email, string fileName, string subject)
+        {
+            MailAddress from = new MailAddress("labwork15kafis@gmail.com", "Гостиница Принцесса на горошине");
+            MailAddress to = new MailAddress(email);
+            MailMessage m = new MailMessage(from, to)
+            {
+                Subject = subject
+            };
+            m.Attachments.Add(new Attachment(fileName));
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("labwork15kafis@gmail.com", "passlab15"),
+                EnableSsl = true
+            };
+            smtp.Send(m);
         }
     }
 }

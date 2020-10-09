@@ -1,4 +1,4 @@
-﻿
+﻿@model ReportModel
 @{ ViewData["Title"] = "Конференции"; }
 
 <div class="text-center text-info">
@@ -9,16 +9,16 @@
 <hr />
 @using (Html.BeginForm())
 {
-<p>
-<button type="submit" class="btn btn-info btn-sm">Получить отчет по конференциям на почту в формате PDF</button>
-</p>
+    <p>
+        <button type="submit" class="btn btn-info btn-sm">Получить отчет по конференциям на почту в формате PDF</button>
+    </p>
 }
 <hr />
 @foreach (var order in ViewBag.conferences)
 {
-<p><strong>Конференция @order.Id </strong></p>
-<p>Дата создания: @order.DateCreate</p>
-<p>Цена: @order.Price</p>
+    <p><strong>Конференция @order.Id </strong></p>
+    <p>Дата создания: @order.DateCreate</p>
+    <p>Цена: @order.Price</p>
     <table class="table">
         <tr>
             <td>Тип номера</td>
@@ -26,18 +26,17 @@
         </tr>
         @foreach (var car in order.ConferenceRooms)
         {
-    <tr>
-        <td>@car.RoomType</td>
-        <td>@car.Price</td>
-    </tr>
+            <tr>
+                <td>@car.RoomType</td>
+                <td>@car.Price</td>
+            </tr>
         }
     </table>
-    
     <p>
-
+        <a href="/Conference/SendWordReport/@order.Id">Отправить список конференций в формате .docx</a>
     </p>
     <p>
-
+        <a href="/Conference/SendExcelReport/@order.Id">Отправить список конференций в формате .xslx</a>
     </p>
     <hr />
 }

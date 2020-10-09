@@ -16,12 +16,14 @@ namespace web.Controllers
         private readonly IConferenceLogic _conLogic;
         private readonly IRoomLogic _roomLogic;
         private readonly ILunchLogic _lunchLogic;
+        private readonly ReportLogic _reportLogic;
 
-        public ConferenceController(IConferenceLogic conferenceLogic, IRoomLogic roomLogic, ILunchLogic lunchLogic)
+        public ConferenceController(IConferenceLogic conferenceLogic, IRoomLogic roomLogic, ILunchLogic lunchLogic, ReportLogic reportLogic)
         { 
             _conLogic = conferenceLogic;
             _roomLogic = roomLogic;
             _lunchLogic = lunchLogic;
+            _reportLogic = reportLogic;
         }
 
         public IActionResult Conference()
@@ -53,11 +55,8 @@ namespace web.Controllers
             ViewBag.Rooms = carList;
             ViewBag.Conferences = orders;
             string fileName = "pdfreport.pdf";
-            if (model.SendMail)
-            {
-               // _reportLogic.SaveCarsDetailsToPdfFile(fileName, Program.Client.Id, Program.Client.Mail);
-            }
-            return View();
+               _reportLogic.SaveCarsDetailsToPdfFile(fileName, Program.Client.Id, Program.Client.Mail);
+            return RedirectToAction("Conference");
         }
 
         public IActionResult CreateConference()
@@ -141,20 +140,20 @@ namespace web.Controllers
             return sum;
         }
 
-       /* public IActionResult SendWordReport(int id)
+        public IActionResult SendWordReport(int id)
         {
             var order = _conLogic.Read(new ConferenceBindingModel { Id = id }).FirstOrDefault();
-            string fileName = "Список номеров" + order.Id + ".docx";
-            //_reportLogic.SaveOrderToWordFile(fileName, order, Program.Client.Mail);
-            return RedirectToAction("Order");
+            string fileName = "Список конференций" + order.Id + ".docx";
+            _reportLogic.SaveConferenceToWordFile(fileName, order, Program.Client.Mail);
+            return RedirectToAction("Conference");
         }
 
         public IActionResult SendExcelReport(int id)
         {
             var order = _conLogic.Read(new ConferenceBindingModel { Id = id }).FirstOrDefault();
-            string fileName = "Список номеров" + order.Id + ".xlsx";
-           // _reportLogic.SaveOrderToExcelFile(fileName, order, Program.Client.Mail);
-            return RedirectToAction("Order");
-        }*/
+            string fileName = "Список конференций" + order.Id + ".xlsx";
+            _reportLogic.SaveConferenceToExcelFile(fileName, order, Program.Client.Mail);
+            return RedirectToAction("Conference");
+        }
     }
 }

@@ -66,6 +66,88 @@ namespace AbstractHotelBusinessLogic.BuisnessLogic
             renderer.RenderDocument();
             renderer.PdfDocument.Save(info.FileName);
         }
+
+        public static void CreateDoc(PdfInfoClient info)
+        {
+            Document document = new Document();
+            DefineStyles(document);
+            Section section = document.AddSection();
+            Paragraph paragraph = section.AddParagraph(info.Title);
+            paragraph.Format.Alignment = ParagraphAlignment.Center;
+            paragraph.Style = "NormalTitle";
+            foreach (var order in info.Conferences)
+            {
+                var orderLabel = section.AddParagraph("Конференция №" + order.Id + "от" + order.DateCreate);
+                orderLabel.Style = "NormalTitle";
+                var CarLabel = section.AddParagraph("Номера с обедами:");
+                CarLabel.Style = "NormalTitle";
+
+                foreach (var cars in order.ConferenceRooms)
+                {
+                    var CarTable = document.LastSection.AddTable();
+                    List<string> headerWidths2 = new List<string> { "1cm", "3cm", "3cm", "3cm" };
+                    foreach (var elem in headerWidths2)
+                    {
+                        CarTable.AddColumn(elem);
+                    }
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = CarTable,
+                        Texts = new List<string> { "№", "Тип номера", "Количество", "Цена" },
+                        Style = "NormalTitle",
+                        ParagraphAlignment = ParagraphAlignment.Center
+                    });
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = CarTable,
+                        Texts = new List<string> { cars.RoomId.ToString(), cars.RoomType, cars.Count.ToString(), cars.Price.ToString() },
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Left
+                    });
+                    foreach (var car in info.Rooms)
+                    {
+                        if (car.Id != cars.RoomId)
+                        {
+                            continue;
+                        }
+
+                        var detailTable = document.LastSection.AddTable();
+                        List<string> headerWidths3 = new List<string> { "1cm", "3cm", "3cm" };
+                        foreach (var elem in headerWidths3)
+                        {
+                            detailTable.AddColumn(elem);
+                        }
+                        CreateRow(new PdfRowParameters
+                        {
+                            Table = detailTable,
+                            Texts = new List<string> { "№", "Тип ланча", "Количество" },
+                            Style = "NormalTitle",
+                            ParagraphAlignment = ParagraphAlignment.Center
+                        });
+
+                        foreach (var det in car.LunchRoom)
+                        {
+                            CreateRow(new PdfRowParameters
+                            {
+                                Table = detailTable,
+                                Texts = new List<string> { det.Key.ToString(), det.Value.Item1, det.Value.Item2.ToString() },
+                                Style = "Normal",
+                                ParagraphAlignment = ParagraphAlignment.Left
+                            });
+
+                        }
+                        section.AddParagraph();
+                    }
+                }
+            }
+            PdfDocumentRenderer renderer = new PdfDocumentRenderer(true)
+            {
+                Document = document
+            };
+            renderer.RenderDocument();
+            renderer.PdfDocument.Save(info.FileName);
+        }
+
         /// <summary>
         /// Создание стилей для документа
         /// </summary>
