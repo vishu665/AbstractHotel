@@ -21,7 +21,7 @@ namespace web.Controllers
         }
         public IActionResult BackUpToJson()
         {
-            string fileName = "C:\\бэкап";
+            string fileName = "C:\\Users\\ПК\\Desktop\\бэкап";
             if (Directory.Exists(fileName))
             {
                 _backUp.CreateArchive(fileName);
