@@ -11,31 +11,29 @@ using AbstractHotelBusinessLogic.ViewModels;
 
 namespace web.Controllers
 {
-    public class OrderController : Controller
+    public class ConferenceController : Controller
     {
         private readonly IConferenceLogic _conLogic;
         private readonly IRoomLogic _roomLogic;
         private readonly ILunchLogic _lunchLogic;
-        private readonly ReportLogic _reportLogic;
 
-        public OrderController(IConferenceLogic conferenceLogic, IRoomLogic roomLogic, ILunchLogic lunchLogic, ReportLogic reportLogic)
+        public ConferenceController(IConferenceLogic conferenceLogic, IRoomLogic roomLogic, ILunchLogic lunchLogic)
         { 
             _conLogic = conferenceLogic;
             _roomLogic = roomLogic;
             _lunchLogic = lunchLogic;
-            _reportLogic = reportLogic;
         }
 
-        public IActionResult Order()
+        public IActionResult Conference()
         {
-            ViewBag.Orders = _conLogic.Read(new ConferenceBindingModel
+            ViewBag.Conferences = _conLogic.Read(new ConferenceBindingModel
             {
                 ClientId = Program.Client.Id
             });
             return View();
         }
         [HttpPost]
-        public IActionResult Order(ReportModel model)
+        public IActionResult Conference(ReportModel model)
         {
             var carList = new List<RoomViewModel>();
             var orders = _conLogic.Read(new ConferenceBindingModel
@@ -52,8 +50,8 @@ namespace web.Controllers
                         carList.Add(car);
                 }
             }
-            ViewBag.Cars = carList;
-            ViewBag.Orders = orders;
+            ViewBag.Rooms = carList;
+            ViewBag.Conferences = orders;
             string fileName = "pdfreport.pdf";
             if (model.SendMail)
             {
@@ -62,24 +60,24 @@ namespace web.Controllers
             return View();
         }
 
-        public IActionResult CreateOrder()
+        public IActionResult CreateConference()
         {
-            ViewBag.OrderCars = _roomLogic.Read(null);
+            ViewBag.ConferenceRooms = _roomLogic.Read(null);
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(CreateConfModel model)
+        public ActionResult CreateConference(CreateConfModel model)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.OrderCars = _roomLogic.Read(null);
+                ViewBag.ConferenceRooms = _roomLogic.Read(null);
                 return View(model);
             }
 
             if (model.ConferenceRooms == null)
             {
-                ViewBag.OrderCars = _roomLogic.Read(null);
+                ViewBag.ConferenceRooms = _roomLogic.Read(null);
                 ModelState.AddModelError("", "Выберите комнату");
                 return View(model);
             }
@@ -123,7 +121,7 @@ namespace web.Controllers
                     Price = CalculateSum(orderCars),
                     ConferenceRooms = orderCars
                 });
-            return RedirectToAction("Order");
+            return RedirectToAction("Conference");
         }
 
         private int CalculateSum(List<ConferenceRoomBindingModel> orderCars)
@@ -143,7 +141,7 @@ namespace web.Controllers
             return sum;
         }
 
-        public IActionResult SendWordReport(int id)
+       /* public IActionResult SendWordReport(int id)
         {
             var order = _conLogic.Read(new ConferenceBindingModel { Id = id }).FirstOrDefault();
             string fileName = "Список номеров" + order.Id + ".docx";
@@ -157,6 +155,6 @@ namespace web.Controllers
             string fileName = "Список номеров" + order.Id + ".xlsx";
            // _reportLogic.SaveOrderToExcelFile(fileName, order, Program.Client.Mail);
             return RedirectToAction("Order");
-        }
+        }*/
     }
 }

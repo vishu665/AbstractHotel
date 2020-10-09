@@ -1,11 +1,11 @@
-﻿@model ReportModel
+﻿
 @{ ViewData["Title"] = "Конференции"; }
 
 <div class="text-center text-info">
     <h1>Конференции</h1>
 </div>
 <hr />
-<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="conference" asp-action="CreateOrder">Создать конференцию</a></strong></p>
+<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="conference" asp-action="CreateConference">Создать конференцию</a></strong></p>
 <hr />
 @using (Html.BeginForm())
 {
@@ -14,7 +14,7 @@
 </p>
 }
 <hr />
-@foreach (var order in ViewBag.orders)
+@foreach (var order in ViewBag.conferences)
 {
 <p><strong>Конференция @order.Id </strong></p>
 <p>Дата создания: @order.DateCreate</p>
@@ -24,20 +24,20 @@
             <td>Тип номера</td>
             <td>Цена</td>
         </tr>
-        @foreach (var car in order.OrderCars)
+        @foreach (var car in order.ConferenceRooms)
         {
     <tr>
-        <td>@car.RoomsType</td>
+        <td>@car.RoomType</td>
         <td>@car.Price</td>
     </tr>
         }
     </table>
     
-<p>
-<a href="/Order/SendWordReport/@order.Id">Отправить список номеров в формате .docx</a>
-</p>
-<p>
-<a href="/Order/SendExcelReport/@order.Id">Отправить список номеров в формате .xslx</a>
-</p>
-<hr />
+    <p>
+
+    </p>
+    <p>
+
+    </p>
+    <hr />
 }
